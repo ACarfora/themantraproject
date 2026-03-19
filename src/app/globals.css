@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────
+   The Mantra Project — Zen Design System
+   Tailwind CSS v4 with @theme custom tokens
+   Dark mode is default; add .light to <html> for light
+   ─────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Colour Palette (Dark — default) ── */
+  --color-bg:               #0C0E0D;   /* Deep Earth */
+  --color-surface:          #1A1C1B;   /* Warm Stone */
+  --color-surface-alt:      #222725;   /* Moss Shadow */
+  --color-text:             #E8E4DC;   /* Moonlight */
+  --color-text-secondary:   #9A9B93;   /* Sage Grey */
+  --color-accent:           #C9A96E;   /* Candle Gold */
+  --color-accent-secondary: #7D9B82;   /* Muted Sage */
+  --color-accent-tertiary:  #A89AB5;   /* Soft Lavender */
+  --color-border:           #2E3230;   /* Bark */
+
+  /* ── Font Families ── */
+  --font-serif:    "Cormorant Garamond", "Georgia", serif;
+  --font-heading:  "Lora", "Georgia", serif;
+  --font-body:     "Inter", "Helvetica Neue", sans-serif;
+
+  /* ── Animation Easings ── */
+  --ease-zen: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* ── Keyframes ── */
+  --animate-fade-in:       fadeIn 0.8s var(--ease-zen) both;
+  --animate-fade-up:       fadeUp 0.8s var(--ease-zen) both;
+  --animate-breathe:       breathe 12s ease-in-out infinite;
+  --animate-gradient-shift: gradientShift 8s ease infinite;
+  --animate-word-reveal:   wordReveal 0.6s var(--ease-zen) both;
+}
+
+/* ─────────────────────────
+   Keyframe Definitions
+   ───────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Breathe: 4-7-8 technique — inhale 4s, hold 7s, exhale 8s */
+@keyframes breathe {
+  0%    { transform: scale(1.0);  opacity: 0.8; }  /* start inhale */
+  21%   { transform: scale(1.3);  opacity: 1;   }  /* end inhale (4/19) */
+  58%   { transform: scale(1.3);  opacity: 1;   }  /* end hold (11/19) */
+  100%  { transform: scale(1.0);  opacity: 0.8; }  /* end exhale (19/19) */
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes wordReveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ─────────────────────────
+   Base Styles
+   ───────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(
+    170deg,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-surface) 40%, var(--color-bg)) 40%,
+    var(--color-bg) 60%,
+    color-mix(in srgb, var(--color-accent) 4%, var(--color-bg)) 100%
+  );
+  background-attachment: fixed;
+  color: var(--color-text);
+  transition: background 0.5s ease, color 0.5s ease;
+  min-height: 100dvh;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────
+   Custom Cursor
+   ───────────────────────── */
+
+* {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='6' fill='none' stroke='%23C9A96E' stroke-width='2' opacity='0.85'/%3E%3Ccircle cx='14' cy='14' r='2' fill='%23C9A96E' opacity='0.65'/%3E%3C/svg%3E") 14 14, default;
+}
+
+a, button, [role="button"], input[type="range"], select, label {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23C9A96E' stroke-width='2' opacity='0.9'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23C9A96E' opacity='0.75'/%3E%3C/svg%3E") 16 16, pointer;
+}
+
+html.light * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='6' fill='none' stroke='%232A2A28' stroke-width='2' opacity='0.85'/%3E%3Ccircle cx='14' cy='14' r='2' fill='%232A2A28' opacity='0.65'/%3E%3C/svg%3E") 14 14, default;
+}
+
+html.light a, html.light button, html.light [role="button"],
+html.light input[type="range"], html.light select, html.light label {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%232A2A28' stroke-width='2' opacity='0.9'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%232A2A28' opacity='0.75'/%3E%3C/svg%3E") 16 16, pointer;
+}
+
+textarea {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cline x1='10' y1='2' x2='10' y2='18' stroke='%23C9A96E' stroke-width='1.5' opacity='0.8'/%3E%3C/svg%3E") 10 10, text;
+}
+
+/* ─────────────────────────
+   Grain Texture Overlay
+   ───────────────────────── */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* Utility class for grain overlay on any element */
+.grain-overlay {
+  position: relative;
+}
+
+.grain-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ─────────────────────────
+   Light Mode
+   ───────────────────────── */
+
+html.light {
+  --color-bg:               #F7F5F0;   /* Rice Paper */
+  --color-surface:          #EDEBE5;   /* Warm Linen */
+  --color-surface-alt:      #E3E1DB;
+  --color-text:             #2A2A28;   /* Charcoal Earth */
+  --color-text-secondary:   #6B6B66;
+  --color-accent:           #B8943F;   /* Deepened Candle Gold */
+  --color-accent-secondary: #5C7E5E;   /* Forest Sage */
+  --color-accent-tertiary:  #8B7A9E;
+  --color-border:           #D4D2CC;
+}
+
+html.light body::after {
+  opacity: 0.025;
+}
+
+/* ─────────────────────────
+   Selection & Scrollbar
+   ───────────────────────── */
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* ─────────────────────────
+   Utility: Focus Ring
+   ───────────────────────── */
+
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
