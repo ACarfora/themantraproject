@@ -6,12 +6,11 @@ import { useAudio } from '@/hooks/useAudio';
 import { usePreferencesStore } from '@/stores/usePreferencesStore';
 import { GlassPanel } from '@/components/ui/GlassPanel';
 
-type SoundId = 'rain' | 'ocean' | 'forest' | 'bowls';
+type SoundId = 'rain' | 'waves' | 'bowls';
 
 const soundscapes: { id: SoundId; name: string }[] = [
   { id: 'rain', name: 'Rain' },
-  { id: 'ocean', name: 'Ocean' },
-  { id: 'forest', name: 'Forest' },
+  { id: 'waves', name: 'Waves' },
   { id: 'bowls', name: 'Singing Bowls' },
 ];
 
@@ -32,21 +31,12 @@ function SoundIcon({ id, active }: { id: SoundId; active: boolean }) {
     );
   }
 
-  if (id === 'ocean') {
+  if (id === 'waves') {
     return (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
         <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
         <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
-      </svg>
-    );
-  }
-
-  if (id === 'forest') {
-    return (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3L5 14h4l-2 7h10l-2-7h4L12 3z" />
-        <path d="M12 22v-3" />
       </svg>
     );
   }
@@ -70,7 +60,7 @@ export function SoundscapePlayer() {
   const storedVolume = usePreferencesStore((s) => s.volume);
   const setStoredVolume = usePreferencesStore((s) => s.setVolume);
 
-  const soundType = (activeSound ?? '') as 'rain' | 'ocean' | 'forest' | 'bowls' | '';
+  const soundType = (activeSound ?? '') as 'rain' | 'waves' | 'bowls' | '';
   const audio = useAudio(soundType);
 
   const handleSelect = (id: SoundId) => {
