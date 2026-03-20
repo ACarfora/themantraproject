@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useBreathing } from '@/hooks/useBreathing';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
@@ -10,15 +10,13 @@ const PHASE_LABELS: Record<string, string> = {
   'exhale': 'Exhale',
 };
 
-/** Total cycle duration in seconds (4 + 7 + 8) */
 const PHASE_DURATIONS: Record<string, number> = {
   'inhale': 4,
   'hold-in': 7,
   'exhale': 8,
 };
-const TOTAL_CYCLE = 4 + 7 + 8; // 19s
+const TOTAL_CYCLE = 4 + 7 + 8;
 
-/** Cumulative start offset of each phase within the full cycle */
 const PHASE_OFFSETS: Record<string, number> = {
   'inhale': 0,
   'hold-in': 4,
@@ -56,17 +54,21 @@ interface BreathingOrbProps {
 }
 
 export function BreathingOrb({ breathing }: BreathingOrbProps) {
-  const { phase, isActive, progress, toggle } = breathing;
+  const { phase, isActive, progress, countdown, toggle } = breathing;
   const reducedMotion = useReducedMotion();
 
   const scale = reducedMotion ? 1 : getOrbScale(phase, progress);
   const glow = getGlowIntensity(phase, progress);
-  const label = isActive ? PHASE_LABELS[phase] : 'Tap to begin';
 
-  // Timer ring resets per phase — progress 0→1 within each phase
+  const isCountingDown = countdown !== null;
+  const label = isCountingDown
+    ? String(countdown)
+    : isActive
+      ? PHASE_LABELS[phase]
+      : 'Tap to begin';
+
   const phaseProgress = isActive ? progress : 0;
 
-  // SVG ring parameters — sized to wrap around the orb with a gap
   const ringSize = 320;
   const ringRadius = 148;
   const circumference = 2 * Math.PI * ringRadius;
@@ -74,14 +76,13 @@ export function BreathingOrb({ breathing }: BreathingOrbProps) {
 
   return (
     <div className="relative flex items-center justify-center w-[240px] h-[240px] md:w-[320px] md:h-[320px]">
-      {/* Timer ring — absolutely centered over the orb area */}
+      {/* Timer ring */}
       <svg
         className="absolute inset-0 pointer-events-none"
         width="100%"
         height="100%"
         viewBox={`0 0 ${ringSize} ${ringSize}`}
       >
-        {/* Background ring track */}
         <circle
           cx={ringSize / 2}
           cy={ringSize / 2}
@@ -91,7 +92,6 @@ export function BreathingOrb({ breathing }: BreathingOrbProps) {
           strokeWidth="2"
           opacity={isActive ? 0.5 : 0.2}
         />
-        {/* Animated progress arc — sweeps clockwise from 12 o'clock */}
         {isActive && (
           <circle
             cx={ringSize / 2}
@@ -109,7 +109,7 @@ export function BreathingOrb({ breathing }: BreathingOrbProps) {
         )}
       </svg>
 
-      {/* Orb — centered within the ring wrapper */}
+      {/* Orb */}
       <motion.button
         type="button"
         onClick={toggle}
@@ -127,7 +127,7 @@ export function BreathingOrb({ breathing }: BreathingOrbProps) {
           transition: reducedMotion ? 'none' : 'transform 0.15s ease-out, box-shadow 0.15s ease-out',
         }}
         whileTap={{ scale: scale * 0.97 }}
-        aria-label={isActive ? `Breathing exercise: ${PHASE_LABELS[phase]}` : 'Start breathing exercise'}
+        aria-label={isActive ? `Breathing exercise: ${PHASE_LABELS[phase]}` : isCountingDown ? `Starting in ${countdown}` : 'Start breathing exercise'}
       >
         {/* Inner glow overlay */}
         <div
@@ -137,18 +137,22 @@ export function BreathingOrb({ breathing }: BreathingOrbProps) {
           }}
         />
 
-        {/* Phase label */}
-        <motion.span
-          key={phase + String(isActive)}
-          className="relative z-10 flex items-center justify-center w-full h-full
-            text-lg md:text-xl font-medium tracking-widest uppercase
-            text-white/90 select-none"
-          initial={reducedMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          {label}
-        </motion.span>
+        {/* Phase label / Countdown */}
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={label}
+            className={`relative z-10 flex items-center justify-center w-full h-full
+              font-medium tracking-widest uppercase
+              text-white/90 select-none
+              ${isCountingDown ? 'text-4xl md:text-5xl' : 'text-lg md:text-xl'}`}
+            initial={reducedMotion ? false : { opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reducedMotion ? undefined : { opacity: 0, scale: 1.2 }}
+            transition={{ duration: 0.3 }}
+          >
+            {label}
+          </motion.span>
+        </AnimatePresence>
       </motion.button>
     </div>
   );

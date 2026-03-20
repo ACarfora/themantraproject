@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -10,9 +11,9 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-transparent backdrop-blur-md">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Site name */}
-        <span className="font-heading text-xl tracking-wide text-[var(--color-text)]">
+        <Link href="/" className="font-heading text-xl tracking-wide text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors duration-300">
           The Mantra Project
-        </span>
+        </Link>
 
         {/* Theme toggle */}
         <button

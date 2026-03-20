@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Lora, Inter } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Navigation } from "@/components/layout/Navigation";
+import { QuoteBackground } from "@/components/quote/QuoteBackground";
 import "./globals.css";
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -42,6 +43,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-body antialiased">
+        <QuoteBackground />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Navigation />
