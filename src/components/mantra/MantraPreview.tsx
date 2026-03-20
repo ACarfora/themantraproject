@@ -2,13 +2,6 @@
 
 import { motion } from 'motion/react';
 import { useMantraStore } from '@/stores/useMantraStore';
-import type { Mantra } from '@/types';
-
-const fontClassMap: Record<Mantra['font'], string> = {
-  serif: 'font-serif',
-  heading: 'font-heading',
-  body: 'font-body',
-};
 
 export function MantraPreview() {
   const mantras = useMantraStore((s) => s.mantras);
@@ -53,9 +46,8 @@ export function MantraPreview() {
 
             {/* Mantra text */}
             <p
-              className={`text-center text-lg leading-relaxed
-                         text-[var(--color-text)]
-                         ${fontClassMap[mantra.font]}`}
+              className="text-center text-lg leading-relaxed
+                         text-[var(--color-text)] font-heading"
             >
               {mantra.text}
             </p>
