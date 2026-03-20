@@ -7,7 +7,7 @@ export default function Home() {
   const quote = useDailyQuote();
 
   return (
-    <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
+    <div className="relative z-10 flex h-dvh flex-col items-center justify-center px-6 overflow-hidden">
       <QuoteDisplay quote={quote} />
     </div>
   );

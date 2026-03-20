@@ -12,7 +12,7 @@ export default function BreathePage() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center px-6">
+    <div className="relative flex h-dvh flex-col items-center justify-center px-6 overflow-hidden">
       <motion.h1
         className="mb-4 font-heading text-2xl font-medium tracking-wide text-[var(--color-text-secondary)] md:text-3xl"
         initial={reducedMotion ? undefined : { opacity: 0, y: 8 }}
