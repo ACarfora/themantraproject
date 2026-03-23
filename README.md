@@ -1,7 +1,7 @@
 # The Mantra Project
 
-A minimal wellness app for daily quotes, guided breathing exercises, and personal mantras.
+A minimal wellness app for daily quotes, guided breathing exercises, personal mantras and daily journaling.
 
-Built with Next.js, React, and Tailwind CSS.
+Built with Claude Code, Next.js, React, and Tailwind CSS.
 
 **https://themantraproject.com**
