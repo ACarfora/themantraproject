@@ -15,8 +15,10 @@ export interface MoodEntry {
 
 export interface JournalEntry {
   id: string;
-  date: string;
-  entries: [string, string, string]; // 3 gratitude items
+  date: string;       // "YYYY-MM-DD" — one entry per day
+  content: string;    // free-text body
+  createdAt: string;  // ISO timestamp of first creation
+  updatedAt: string;  // ISO timestamp of last edit
 }
 
 export interface Mantra {

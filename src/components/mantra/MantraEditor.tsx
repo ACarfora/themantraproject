@@ -35,9 +35,9 @@ export function MantraEditor() {
         onKeyDown={handleKeyDown}
         placeholder="Write your personal mantra..."
         rows={3}
-        className="w-full bg-transparent border border-[var(--color-border)] rounded-lg
+        className="w-full bg-transparent border-0 rounded-lg
                    px-4 py-3 text-[var(--color-text)] placeholder:text-[var(--color-text-secondary)]/50
-                   focus:outline-none focus:border-[var(--color-accent)]
+                   focus:outline-none
                    transition-colors duration-300 resize-none
                    font-heading"
       />

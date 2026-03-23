@@ -9,5 +9,6 @@ export const siteConfig = {
     { label: 'Home', href: '/', icon: 'home' },
     { label: 'Breathe', href: '/breathe', icon: 'wind' },
     { label: 'Mantra', href: '/mantra', icon: 'pen' },
+    { label: 'Journal', href: '/journal', icon: 'book' },
   ],
 } as const;
