@@ -6,10 +6,7 @@ import { JournalEditor } from '@/components/journal/JournalEditor';
 import { JournalCalendar } from '@/components/journal/JournalCalendar';
 import { useJournalStore } from '@/stores/useJournalStore';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-
-function todayDate(): string {
-  return new Date().toLocaleDateString('en-CA');
-}
+import { todayDate } from '@/lib/date';
 
 export default function JournalPage() {
   const reducedMotion = useReducedMotion();

@@ -8,11 +8,6 @@ export interface Quote {
   category?: 'wisdom' | 'nature' | 'mindfulness' | 'courage' | 'gratitude' | 'peace';
 }
 
-export interface MoodEntry {
-  date: string; // ISO date
-  value: 1 | 2 | 3 | 4 | 5;
-}
-
 export interface JournalEntry {
   id: string;
   date: string;       // "YYYY-MM-DD" — one entry per day
@@ -33,15 +28,3 @@ export interface BreathingPhase {
   duration: number; // seconds
 }
 
-export interface SoundscapeOption {
-  id: string;
-  name: string;
-  icon: string;
-  file: string;
-}
-
-export interface DailyChallenge {
-  id: number;
-  text: string;
-  category: string;
-}

@@ -3,33 +3,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useJournalStore } from '@/stores/useJournalStore';
 import { GlassPanel } from '@/components/ui/GlassPanel';
+import { todayDate, formatJournalDate } from '@/lib/date';
 
 // ─────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────
-
-function todayDate(): string {
-  return new Date().toLocaleDateString('en-CA'); // "YYYY-MM-DD"
-}
-
-function ordinalSuffix(day: number): string {
-  if (day >= 11 && day <= 13) return 'th';
-  switch (day % 10) {
-    case 1: return 'st';
-    case 2: return 'nd';
-    case 3: return 'rd';
-    default: return 'th';
-  }
-}
-
-function formatJournalDate(dateStr: string): string {
-  const date = new Date(dateStr + 'T12:00:00'); // noon to avoid timezone shifts
-  const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long' }).format(date);
-  const month = new Intl.DateTimeFormat('en-GB', { month: 'long' }).format(date);
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${weekday} ${day}${ordinalSuffix(day)} ${month} ${year}`;
-}
 
 function calculateStreak(entries: { date: string }[]): number {
   const entryDates = new Set(entries.map((e) => e.date));
