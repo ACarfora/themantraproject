@@ -122,9 +122,9 @@ export const quotes: Quote[] = [
     category: "wisdom",
   },
   {
-    text: "When you do something, you should burn yourself completely, like a good bonfire, leaving no trace of yourself.",
-    author: "Shunryu Suzuki",
-    category: "mindfulness",
+    text: "Be kind, for everyone you meet is fighting a hard battle.",
+    author: "Socrates",
+    category: "wisdom",
   },
   {
     text: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
